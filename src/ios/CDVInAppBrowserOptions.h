@@ -1,3 +1,7 @@
+/**
+ * Adding bgcolor
+ */
+
 /*
  Licensed to the Apache Software Foundation (ASF) under one
  or more contributor license agreements.  See the NOTICE file
@@ -27,6 +31,8 @@
 @property (nonatomic, assign) BOOL lefttoright;
 @property (nonatomic, copy) NSString* toolbarposition;
 @property (nonatomic, copy) NSString* toolbarcolor;
+@property (nonatomic, copy) NSString* bgcolor; // ProFit MOD
+@property (nonatomic, assign) BOOL statusbarlight; // ProFit MOD
 @property (nonatomic, assign) BOOL toolbartranslucent;
 @property (nonatomic, assign) BOOL hidenavigationbuttons;
 @property (nonatomic, copy) NSString* navigationbuttoncolor;
