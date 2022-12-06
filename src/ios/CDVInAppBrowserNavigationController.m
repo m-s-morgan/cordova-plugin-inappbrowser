@@ -1,3 +1,6 @@
+/** ProFit MOD
+ * Setting status bar height to 0
+ */
 /*
  Licensed to the Apache Software Foundation (ASF) under one
  or more contributor license agreements.  See the NOTICE file
@@ -28,6 +31,16 @@
 }
 
 - (void) viewDidLoad {
+    /** ProFit MOD */
+    CGRect statusBarFrame = [self invertFrameIfNeeded:[UIApplication sharedApplication].statusBarFrame];
+    statusBarFrame.size.height = 0;
+    // simplified from: http://stackoverflow.com/a/25669695/219684
+
+    UIToolbar* bgToolbar = [[UIToolbar alloc] initWithFrame:statusBarFrame];
+    bgToolbar.barStyle = UIBarStyleDefault;
+    [bgToolbar setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [self.view addSubview:bgToolbar];
+    /** */
     [super viewDidLoad];
 }
 

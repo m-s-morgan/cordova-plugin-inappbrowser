@@ -1,3 +1,6 @@
+/** ProFit MOD
+ * adding bgcolor option
+ */
 /*
  Licensed to the Apache Software Foundation (ASF) under one
  or more contributor license agreements.  See the NOTICE file
@@ -43,6 +46,10 @@
         self.closebuttoncolor = nil;
         self.lefttoright = false;
         self.toolbarcolor = nil;
+        /** ProFit MOD */
+        self.bgcolor = nil;
+        self.statusbarlight = NO;
+        /** */
         self.toolbartranslucent = YES;
         self.beforeload = @"";
     }
