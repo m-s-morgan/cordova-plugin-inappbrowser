@@ -28,6 +28,10 @@
 @property (nonatomic, assign) BOOL lefttoright;
 @property (nonatomic, copy) NSString* toolbarposition;
 @property (nonatomic, copy) NSString* toolbarcolor;
+/** ProFit MOD */
+@property (nonatomic, copy) NSString* bgcolor;
+@property (nonatomic, assign) BOOL statusbarlight;
+/** */
 @property (nonatomic, assign) BOOL toolbartranslucent;
 @property (nonatomic, assign) BOOL hidenavigationbuttons;
 @property (nonatomic, copy) NSString* navigationbuttoncolor;
