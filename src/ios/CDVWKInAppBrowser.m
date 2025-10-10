@@ -140,7 +140,7 @@ static CDVWKInAppBrowser* instance = nil;
             }
         }];
     }
-
+    
     if (browserOptions.clearsessioncache) {
         // Deletes session cookies
         WKHTTPCookieStore* cookieStore = dataStore.httpCookieStore;
@@ -233,7 +233,7 @@ static CDVWKInAppBrowser* instance = nil;
         NSLog(@"Tried to show IAB after it was closed.");
         return;
     }
-
+    
     __block CDVInAppBrowserNavigationController* nav = [[CDVInAppBrowserNavigationController alloc]
                                                         initWithRootViewController:self.inAppBrowserViewController];
     nav.orientationDelegate = self.inAppBrowserViewController;
@@ -249,11 +249,20 @@ static CDVWKInAppBrowser* instance = nil;
             float osVersion = [[[UIDevice currentDevice] systemVersion] floatValue];
             __strong __typeof(weakSelf) strongSelf = weakSelf;
             if (!strongSelf->tmpWindow) {
-                CGRect frame = [[UIScreen mainScreen] bounds];
-                if(initHidden && osVersion < 11){
-                   frame.origin.x = -10000;
+                if (@available(iOS 13.0, *)) {
+                    UIWindowScene *scene = strongSelf.viewController.view.window.windowScene;
+                    if (scene) {
+                        strongSelf->tmpWindow = [[UIWindow alloc] initWithWindowScene:scene];
+                    }
                 }
-                strongSelf->tmpWindow = [[UIWindow alloc] initWithFrame:frame];
+
+                if (!strongSelf->tmpWindow) {
+                    CGRect frame = [[UIScreen mainScreen] bounds];
+                    if(initHidden && osVersion < 11){
+                       frame.origin.x = -10000;
+                    }
+                    strongSelf->tmpWindow = [[UIWindow alloc] initWithFrame:frame];
+                }
             }
             UIViewController *tmpController = [[UIViewController alloc] init];
             [strongSelf->tmpWindow setRootViewController:tmpController];
@@ -280,7 +289,7 @@ static CDVWKInAppBrowser* instance = nil;
 
 
     }
-
+    
     // Run later to avoid the "took a long time" log message.
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.inAppBrowserViewController != nil) {
@@ -716,8 +725,7 @@ BOOL isExiting = FALSE;
         self.webView.inspectable = [_settings cordovaBoolSettingForKey:@"InspectableWebview" defaultValue:allowWebviewInspectionDefault];
     }
 #endif
-
-
+    
     [self.view addSubview:self.webView];
     [self.view sendSubviewToBack:self.webView];
 
@@ -747,9 +755,9 @@ BOOL isExiting = FALSE;
     [self.webView setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
     self.webView.allowsLinkPreview = NO;
     self.webView.allowsBackForwardNavigationGestures = NO;
-
+    
     [self.webView.scrollView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
-
+    
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.spinner.alpha = 1.000;
     self.spinner.autoresizesSubviews = YES;
